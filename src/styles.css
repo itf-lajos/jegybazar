@@ -26,9 +26,11 @@ body {
   width: 10em;
 }
 
+/*
 .card {
   border: none;
 }
+*/
 
 .card-text {
   min-height: 6em;
