@@ -28,10 +28,9 @@ const routes: Routes = [
     children: [
       {path: 'list', component: TicketListComponent},
       {path: 'new', component: TicketDetailComponent},
-      {path: ':id', component: TicketDetailComponent}
+      {path: ':id/bid', component: BidComponent}
     ]
   },
-  {path: 'bid', component: BidComponent},
   {path: 'about', component: AboutComponent},
   {path: 'login', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
