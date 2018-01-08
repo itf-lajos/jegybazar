@@ -1,31 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.container
-{
-  flex: 1;
-}
-
-.lead {
-  font-size: 1.2em;
-}
-
-.index_card {
-  border: none;
-}
-
-.index_text {
-  min-height: 8em;
-}
-
-.index_btn_card {
-  width: 10em;
-}
-
 /*
 .card {
   border: none;
@@ -42,11 +15,6 @@ body {
 
 .btn_card {
   width: 10em;
-}
-
-.calendar {
-  height: 50px;
-  width: 50px;
 }
 
 footer {
@@ -66,11 +34,12 @@ body {
   flex-direction: column;
 }
 
-.container {
+.container
+{
   flex: 1;
 }
 
-.lead{
+.lead {
   font-size: 1.2em;
 }
 
@@ -78,10 +47,6 @@ body {
   min-height: calc(100vh - 60px);
   display: flex;
   flex-direction: column;
-}
-
-footer {
-  height: 60px;
 }
 
 /* index.html css*/
