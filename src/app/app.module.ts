@@ -1,7 +1,7 @@
 ///<reference path="app-routing.module.ts"/>
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {CollapseModule} from 'ngx-bootstrap';
+import {AlertModule, CollapseModule} from 'ngx-bootstrap';
 import {AppRoutingModule} from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -24,6 +24,7 @@ import {UserService} from './shared/user.service';
   imports: [
     BrowserModule,
     CollapseModule.forRoot(),
+    AlertModule.forRoot(),
     AppRoutingModule
   ],
   providers: [EventService, UserService],
