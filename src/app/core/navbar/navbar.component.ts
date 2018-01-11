@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from '../../shared/user.service';
+import {UserModel} from '../../shared/user-model';
 
 @Component({
   selector: 'app-navbar',
@@ -7,8 +8,11 @@ import {UserService} from '../../shared/user.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  public isCollapsed = true;
+  @Input() currentUserName: string;
 
-  constructor(public userService: UserService) { }
+  constructor(public userService: UserService) {
+  }
 
   ngOnInit() {
   }

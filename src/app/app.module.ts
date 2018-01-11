@@ -11,6 +11,8 @@ import { EventcardComponent } from './event/eventcard/eventcard.component';
 import { FooterComponent } from './core/footer/footer.component';
 import {EventService} from './shared/event.service';
 import {UserService} from './shared/user.service';
+import {TicketService} from './shared/ticket.service';
+import {LoggedInGuard} from './shared/logged-in.guard';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,7 @@ import {UserService} from './shared/user.service';
     AlertModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [EventService, UserService],
+  providers: [EventService, UserService, TicketService, LoggedInGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

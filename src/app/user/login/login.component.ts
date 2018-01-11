@@ -8,6 +8,7 @@ import {UserService} from '../../shared/user.service';
 })
 export class LoginComponent implements OnInit {
   public error: string;
+//  public currentUser = 'angular';
 
   constructor(private _userService: UserService) { }
 
