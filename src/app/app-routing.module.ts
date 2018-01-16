@@ -6,7 +6,7 @@ import {EventComponent} from './event/event.component';
 import {TicketComponent} from './ticket/ticket.component';
 import {AboutComponent} from './about/about.component';
 import {LoginComponent} from './user/login/login.component';
-import {RegistrationComponent} from './user/registration/registration.component';
+// import {RegistrationComponent} from './user/registration/registration.component';
 import {EventListComponent} from './event/event-list/event-list.component';
 import {EventDetailComponent} from './event/event-detail/event-detail.component';
 import {ProfileComponent} from './user/profile/profile.component';
@@ -14,32 +14,32 @@ import {ProfileEditComponent} from './user/profile-edit/profile-edit.component';
 import {TicketListComponent} from './ticket/ticket-list/ticket-list.component';
 import {TicketDetailComponent} from './ticket/ticket-detail/ticket-detail.component';
 import {BidComponent} from './ticket/bid/bid.component';
-import {LoggedInGuard} from './shared/logged-in.guard';
+import {LoggedInGuardGuard} from './shared/logged-in.guard';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'event', component: EventComponent,
     children: [
-      {path: 'list', component: EventListComponent},
-      {path: 'new', component: EventDetailComponent},
+      {path: '', component: EventListComponent},
+      {path: 'new', component: EventDetailComponent, canActivate: [LoggedInGuardGuard]},
       {path: ':id', component: EventDetailComponent}
     ]
   },
   {path: 'ticket', component: TicketComponent,
     children: [
-      {path: 'list', component: TicketListComponent},
-      {path: 'new', component: TicketDetailComponent},
-      {path: ':id/bid', component: BidComponent}
+      {path: '', component: TicketListComponent},
+      {path: 'new', component: TicketDetailComponent, canActivate: [LoggedInGuardGuard]},
+      {path: ':id', component: BidComponent}
     ]
   },
   {path: 'about', component: AboutComponent},
   {
     path: 'user',
     children: [
-      {path: '', component: ProfileComponent, canActivate: [LoggedInGuard]},
-      {path: 'edit', component: ProfileEditComponent, canActivate: [LoggedInGuard]},
+      {path: '', component: ProfileComponent, canActivate: [LoggedInGuardGuard]},
+      {path: 'edit', component: ProfileEditComponent, canActivate: [LoggedInGuardGuard]},
       {path: 'login', component: LoginComponent},
-      {path: 'registration', component: RegistrationComponent},
+      {path: 'registration', component: ProfileEditComponent},
     ]
   },
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -62,7 +62,7 @@ export class AppRoutingModule {
     BidComponent,
     AboutComponent,
     LoginComponent,
-    RegistrationComponent,
+//    RegistrationComponent,
     ProfileComponent,
     ProfileEditComponent,
     PageNotFoundComponent

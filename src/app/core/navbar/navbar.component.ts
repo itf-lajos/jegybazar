@@ -1,6 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../shared/user.service';
-import {UserModel} from '../../shared/user-model';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +8,6 @@ import {UserModel} from '../../shared/user-model';
 })
 export class NavbarComponent implements OnInit {
   public isCollapsed = true;
-  @Input() currentUserName: string;
 
   constructor(public userService: UserService) {
   }
@@ -20,5 +18,4 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.userService.logout();
   }
-
 }

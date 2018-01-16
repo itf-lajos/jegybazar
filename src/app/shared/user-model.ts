@@ -5,10 +5,20 @@ export class UserModel {
   address: string;
   dateOfBirth: string;
   gender: string;
+  profilePictureUrl: string;
 
   constructor(param?: UserModel) {
     if (param) {
       Object.assign(this, param);
+/*
+      id: 0,
+        name: 'Legyek Réka Matilda',
+        email: 'legyekrekamatilda@valami.com',
+        address: 'Futrinka utca',
+        dateOfBirth: '2001.01.01',
+        gender: 'female',
+        profilePictureUrl: 'assets/131.jpg'
+*/
     }
   }
 
@@ -19,7 +29,8 @@ export class UserModel {
       email: 'legyekrekamatilda@valami.com',
       address: 'Futrinka utca',
       dateOfBirth: '2001.01.01',
-      gender: 'female'
+      gender: 'female',
+      profilePictureUrl: 'assets/131.jpg'
     };
   }
 
@@ -30,7 +41,8 @@ export class UserModel {
       email: '',
       address: '',
       dateOfBirth: '',
-      gender: ''
+      gender: '',
+      profilePictureUrl: ''
     };
   }
 

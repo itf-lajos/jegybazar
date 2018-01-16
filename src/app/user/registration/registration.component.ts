@@ -1,3 +1,4 @@
+/*
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../shared/user.service';
 
@@ -18,3 +19,4 @@ export class RegistrationComponent implements OnInit {
   }
 
 }
+*/

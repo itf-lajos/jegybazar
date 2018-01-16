@@ -9,12 +9,12 @@
     </form>
   </div>
 
-  <div class="my-2 my-lg-0 text-center">
+  <div class="my-2 my-lg-0 text-center"  *ngIf="userService.isLoggedin">
     <div>
       <label>Jegyet szeretnék létrehozni</label>
     </div>
     <div class="w-100"></div>
-    <div><a routerLink="../new" class="btn btn-primary" role="button">Új jegy léterhozása</a></div>
+    <div><a routerLink="new" class="btn btn-primary" role="button">Új jegy léterhozása</a></div>
   </div>
 
 </div>
@@ -45,7 +45,8 @@
       <td class="d-none d-md-table-cell">{{ ticket.seller.name }}</td>
       <td class="d-none d-md-table-cell">{{ ticket.numberOfTickets }}</td>
       <td>
-        <a [routerLink]="['/ticket', ticket.id, 'bid']">Tovább a licithez</a>
+        <a [routerLink]="['/ticket', ticket.id]">Tovább a licithez</a>
+        <!--<a [routerLink]="['/ticket', ticket.id, 'bid']">Tovább a licithez</a>-->
       </td>
     </tr>
 

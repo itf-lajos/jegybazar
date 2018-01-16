@@ -12,7 +12,7 @@ import { FooterComponent } from './core/footer/footer.component';
 import {EventService} from './shared/event.service';
 import {UserService} from './shared/user.service';
 import {TicketService} from './shared/ticket.service';
-import {LoggedInGuard} from './shared/logged-in.guard';
+import {LoggedInGuardGuard} from './shared/logged-in.guard';
 import {FormsModule} from '@angular/forms';
 
 @NgModule({
@@ -31,7 +31,7 @@ import {FormsModule} from '@angular/forms';
     AlertModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [EventService, UserService, TicketService, LoggedInGuard],
+  providers: [EventService, UserService, TicketService, LoggedInGuardGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

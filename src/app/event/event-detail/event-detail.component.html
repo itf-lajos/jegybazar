@@ -10,25 +10,39 @@
 
   <!--card-body-->
   <div class="card-body">
-    <form #eventForm="ngForm" (ngSubmit)="onSubmit(eventForm.value)">
+
+    <form #eventForm="ngForm" (ngSubmit)="onSubmit()">
+      <!--<form #eventForm="ngForm" (ngSubmit)="onSubmit(eventForm.value)">-->
       <div class="form-group">
         <label for="esemeny">Esemény címe:</label>
         <input type="text" class="form-control mb-3" id="esemeny" placeholder="Esemény címe"
-          [(ngModel)]="event.name" name="name"
-        >
+          [disabled]="!editForm" [(ngModel)]="event.name" name="name" required #name="ngModel">
+        <alert type="danger" *ngIf="name.touched && name.invalid">Kötelező mező!</alert>
       </div>
-        <div class="form-group">
+
+      <div class="form-group">
         <label for="idopont">Esemény időpontja</label>
         <input type="text" class="form-control mb-3" id="idopont" placeholder="Esemény időpontja"
-          [(ngModel)]="event.date" name="date"
-        >
+               [disabled]="!editForm" [(ngModel)]="event.date" name="date" required #date="ngModel">
+        <alert type="danger" *ngIf="date.touched && date.invalid">Kötelező mező!</alert>
       </div>
-        <div class="form-group">
+
+      <div class="form-group mt-3">
+        <label for="pictureUrl">Válassz képet az eseményhez</label>
+        <input type="text" id="pictureUrl" class="form-control mb-3" placeholder="Eseményhez tartozo kep url-je" required
+          [disabled]="!editForm" [(ngModel)]="event.pictureURL" name="picUrl" #picUrl="ngModel">
+          <alert type="danger" *ngIf="picUrl.touched && picUrl.invalid">
+            Kötelező mező!
+          </alert>
+      </div>
+<!--
+      <div class="form-group">
         <label for="pictureURL">Válassz képet az eseményhez</label>
         <input type="text" class="form-control mb-3" id="pictureURL" placeholder="Eseményhez tartozó kép URL-je"
-          [(ngModel)]="event.pictureURL" name="pictUrl"
-        >
+               [disabled]="!editForm" [(ngModel)]="event.pictureURL" name="pictUrl" required #picUrl="ngModel">
+        <alert type="danger" *ngIf="picUrl.touched && picUrl.invalid">Kötelező mező!</alert>
       </div>
+-->
 <!--
     <div class="form-group row">
       <img class="img-fluid mx-auto" src="./assets/newevent.png" alt="">
@@ -40,15 +54,25 @@
 -->
       <div class="form-group">
         <label for="leiras">Esemény leírása</label>
-        <textarea class="form-control" placeholder="Esemény leírása" id="leiras"
-          [(ngModel)]="event.description" name="desc"
-        ></textarea>
+        <textarea id="leiras" class="form-control" placeholder="Esemény leírása" required [disabled]="!editForm"
+                  [(ngModel)]="event.description" name="description" #description="ngModel">
+        </textarea>
+        <alert type="danger" *ngIf="description.touched && description.invalid">Kötelező mező!</alert>
       </div>
       <div class="text-center mb-3">
-        <input *ngIf="!event.id; else modify1" class="btn btn-primary btn-lg" type="submit" value="Létrehozás">
-        <ng-template #modify1><input class="btn btn-primary btn-lg" type="submit" value="Módosítás"></ng-template>
-        <!--<input class="btn btn-primary btn-lg" type="submit" value="létrehozás">-->
-        <!--<input class="btn btn-primary btn-lg" type="submit" routerLink="../list/" value="létrehozás">-->
+        <button type="submit" class="btn btn-primary btn-lg" *ngIf="editForm" disabled]="eventForm.invalid" value="létrehozás">
+          Mentés
+        </button>
+        <button type="button" class="btn btn-primary btn-lg" *ngIf="!editForm && userService.isLoggedin"(click)="editForm = true">
+          Szerkesztés
+        </button>
+        <button type="button" class="btn btn-primary btn-lg" *ngIf="!userService.isLoggedin" (click)="navigateBack()">
+          Vissza
+        </button>
+        <!--
+                <input *ngIf="!event.id; else modify1" class="btn btn-primary btn-lg" type="submit" value="Létrehozás">
+                <ng-template #modify1><input class="btn btn-primary btn-lg" type="submit" value="Módosítás"></ng-template>
+        -->
       </div>
     </form>
   </div>
