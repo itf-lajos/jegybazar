@@ -14,7 +14,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this._userService.getCurrentUser();
+    this.user = this._userService.isLoggedin ? this._userService.getCurrentUser() : new UserModel();
+    // this.user = this._userService.getCurrentUser();
   }
 
 }

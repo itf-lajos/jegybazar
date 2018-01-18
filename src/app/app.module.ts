@@ -14,6 +14,7 @@ import {UserService} from './shared/user.service';
 import {TicketService} from './shared/ticket.service';
 import {LoggedInGuardGuard} from './shared/logged-in.guard';
 import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {FormsModule} from '@angular/forms';
     FormsModule,
     CollapseModule.forRoot(),
     AlertModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [EventService, UserService, TicketService, LoggedInGuardGuard],
   bootstrap: [AppComponent]

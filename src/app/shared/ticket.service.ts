@@ -76,6 +76,7 @@ export class TicketService {
   }
 
   create(param: TicketModel) {
+/*
     this._tickets = [
       ...this._tickets,
       new TicketModel(
@@ -86,10 +87,11 @@ export class TicketService {
         seller: this._userService.getUserById(param.sellerUserId)
       })
     ];
+*/
   }
 
   getEventNameById(id: number) {
-    return this._eventService.getEventById(id).name;
+//    return this._eventService.getEventById(id).name;
   }
 
   private _getMockTickets() {

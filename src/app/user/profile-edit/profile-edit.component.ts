@@ -15,11 +15,16 @@ export class ProfileEditComponent implements OnInit {
               private _router: Router) { }
 
   ngOnInit() {
-    this.user = this._userService.getCurrentUser();
+    this.user = this._userService.isLoggedin ? this._userService.getCurrentUser() : new UserModel();
+//    this.user = this._userService.getCurrentUser();
   }
 
   onSubmit() {
-    this._userService.updateUser(this.user);
+    if (this.user.id) {
+      this._userService.updateUser(this.user);
+    } else {
+      this._userService.register(this.user);
+    }
     this._router.navigate(['/user']);
   }
 }
