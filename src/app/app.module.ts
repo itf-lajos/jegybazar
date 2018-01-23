@@ -18,6 +18,8 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AuthInterceptor } from './shared/auth-interceptor';
 import { TicketDetailsCardComponent } from './ticket/ticket-details-card/ticket-details-card.component';
 import { BiddingCardComponent } from './ticket/bidding-card/bidding-card.component';
+import {MomentModule} from 'angular2-moment';
+import 'moment/locale/hu';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { BiddingCardComponent } from './ticket/bidding-card/bidding-card.compone
     CollapseModule.forRoot(),
     AlertModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MomentModule
   ],
 //  providers: [EventService, UserService, TicketService, LoggedInGuardGuard],
   providers: [
