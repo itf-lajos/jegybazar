@@ -13,8 +13,8 @@
     <div class="card-body">
 
       <!--card-body-->
-
-      <form #profileForm="ngForm" (ngSubmit)="onSubmit()">
+      <form #profileForm="ngForm" (ngSubmit)="updateUser()">
+      <!--<form #profileForm="ngForm" (ngSubmit)="onSubmit()">-->
 
         <div class="form-group">
           <label for="nev">Név</label>
@@ -131,14 +131,15 @@
         </alert>
 
         <div class="text-center mb-3">
-          <button type="submit" class="btn btn-primary btn-lg" [disabled]="profileForm.invalid || (pass1.value !== pass2.value)">
+          <button type="button" class="btn btn-primary btn-lg" [disabled]="profileForm.invalid || (pass1.value !== pass2.value)"
+            (click)="createUser(pass1.value)">
             Regisztráció
           </button>
         </div>
       </ng-container>
 
       <div class="text-center mb-3" *ngIf="user.id">
-        <button type="submit" class="btn btn-primary btn-lg" [disabled]="profileForm.invalid">Mentés</button>
+        <button type="submit" class="btn btn-primary btn-lg" routerLink="/home" [disabled]="profileForm.invalid">Mentés</button>
       </div>
 
       <!--
@@ -167,6 +168,8 @@
       <input class="btn btn-primary btn-lg" type="submit" value="mentés" routerLink="../">
     </div>
 -->
+
+    </div>
 
   </div>
 

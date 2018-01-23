@@ -34,7 +34,8 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let ticket of tickets">
+    <tr *ngFor="let ticket of tickets$ | async">
+  <!--<tr *ngFor="let ticket of tickets">-->
       <td scope="row">
         <!--<img [src]="ticket.event.pictureURL" width="20px" height="20px" alt="Event picture">-->
         <a [routerLink]="['/event', ticket.eventId]">

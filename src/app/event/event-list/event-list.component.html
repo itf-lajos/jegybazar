@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<div class="card-deck pt-5 pb-5" *ngFor="let evgroup of eventsGrouppedBy3">
+<div class="card-deck pt-5 pb-5" *ngFor="let evgroup of eventsGrouppedBy3s | async">
   <app-eventcard class="col col-md-6 col-lg-4"
                  *ngFor="let ev of evgroup"
                  [esemeny]="ev">

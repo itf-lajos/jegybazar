@@ -1,11 +1,12 @@
 export class UserModel {
-  id: number;
+  id: string;
   name: string;
   email: string;
   address: string;
   dateOfBirth: string;
   gender: string;
   profilePictureUrl: string;
+  tickets: { [key: string]: string };
 
   constructor(param?: UserModel) {
     if (param) {
@@ -22,7 +23,7 @@ export class UserModel {
     }
   }
 
-  static get exampleUser(): UserModel {
+/*  static get exampleUser(): UserModel {
     return {
       id: 0,
       name: 'Legyek Réka Matilda',
@@ -32,9 +33,9 @@ export class UserModel {
       gender: 'female',
       profilePictureUrl: 'assets/131.jpg'
     };
-  }
+  }*/
 
-  static get emptyUser(): UserModel {
+/*  static get emptyUser(): UserModel {
     return {
       id: 0,
       name: '',
@@ -44,6 +45,6 @@ export class UserModel {
       gender: '',
       profilePictureUrl: ''
     };
-  }
+  }*/
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TicketModel} from '../../shared/ticket-model';
 import {TicketService} from '../../shared/ticket.service';
 import {UserService} from '../../shared/user.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-ticket-list',
@@ -9,15 +10,17 @@ import {UserService} from '../../shared/user.service';
   styleUrls: ['./ticket-list.component.css']
 })
 export class TicketListComponent implements OnInit {
-  public tickets: TicketModel[];
+  tickets$: Observable<TicketModel[]>;
+  // public tickets: TicketModel[];
 
   constructor(private _ticketService: TicketService,
               public userService: UserService) {
   }
 
   ngOnInit() {
+    this.tickets$ = this._ticketService.getAllTickets();
 //    this.tickets = this._ticketService.getAllTickets();
-    console.log(this.tickets);
+//    console.log(this.tickets);
   }
 
 }

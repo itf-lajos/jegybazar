@@ -1,9 +1,10 @@
 export class EventModel {
-  id?: number;
+  id: string;
   name: string;
   date: string;
   pictureURL: string;
   description: string;
+  tickets: { [key: string]: string };
 
   constructor(param?: EventModel) {
     if (param) {
@@ -11,14 +12,14 @@ export class EventModel {
     }
   }
 
-  static get emptyEvent(): EventModel {
+/*  static get emptyEvent(): EventModel {
     return {
-      id: 0,
+      id: '',
       name: '',
       date: '',
       pictureURL: '',
       description: ''
     };
-  }
+  }*/
 
 }
