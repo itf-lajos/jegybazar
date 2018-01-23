@@ -8,9 +8,11 @@ import {TicketModel} from '../../shared/ticket-model';
 })
 export class BiddingCardComponent {
   @Input() ticket: TicketModel;
-  @Output() bidWithBidStep = new EventEmitter<void>();
+  @Input() isLoggedIn: Boolean;
+//  @Output() bidWithBidStep = new EventEmitter<void>();
 
   onBidWithBidStep() {
-    this.bidWithBidStep.emit();
+    alert('Licitálás a következő értékkel')
+//    this.bidWithBidStep.emit();
   }
 }
