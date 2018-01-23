@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {TicketModel} from './ticket-model';
 import {EventService} from './event.service';
 import {UserService} from './user.service';
@@ -12,6 +12,8 @@ import 'rxjs/add/observable/zip';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/observable/combineLatest';
 
 @Injectable()
 export class TicketService {
@@ -50,16 +52,16 @@ export class TicketService {
       .map(ticketsObject => Object.values(ticketsObject))
       .map(ticketsArray => ticketsArray.map(tm =>
         Observable.zip(
-        Observable.of(tm),
-        this._eventService.getEventById(tm.eventId),
-        this._userService.getUserById(tm.sellerUserId),
-        (t: TicketModel, e: EventModel, u: UserModel) => {
-          return {
-            ...t,
-            event: e,
-            seller: u
-          };
-        })
+          Observable.of(tm),
+          this._eventService.getEventById(tm.eventId),
+          this._userService.getUserById(tm.sellerUserId),
+          (t: TicketModel, e: EventModel, u: UserModel) => {
+            return {
+              ...t,
+              event: e,
+              seller: u
+            };
+          })
       ))
       .switchMap(zipStreamArray => Observable.forkJoin(zipStreamArray));
   }
@@ -85,12 +87,26 @@ export class TicketService {
     */
   }
 
-  private _saveGeneratedId(ticketId: string): Observable<string> {
-    return this._http.patch<{ id: string }>(
-      `${environment.firebase.baseUrl}/tickets/${ticketId}.json`,
-      {id: ticketId}
-    )
-    .map(x => x.id);
+  getOne(id: string): Observable<TicketModel> {
+    return this._http.get<TicketModel>(`${environment.firebase.baseUrl}/tickets/${id}.json`)
+      .flatMap(
+        ticket => Observable.combineLatest(
+          Observable.of(new TicketModel(ticket)),
+          this._eventService.getEventById(ticket.eventId),
+          this._userService.getUserById(ticket.sellerUserId),
+          (t: TicketModel, e: EventModel, u: UserModel) => {
+            return {
+              ...t,
+              event: e,
+              seller: u
+            };
+          }
+        )
+      );
+  }
+
+  getEventNameById(id: string) {
+//    return this._eventService.getEventById(id).name;
   }
 
   /*
@@ -146,77 +162,81 @@ export class TicketService {
       ];
   */
 
-/*  // getAllTickets(): TicketModel[] {
-  getAllTickets() {
-    return this._tickets.map(ticket => {
-      return {
-        ...ticket,
-        event: this._eventService.getEventById(ticket.eventId),
-        seller: this._userService.getUserById(ticket.sellerUserId)
-      };
-    });
-  }*/
+  /*  // getAllTickets(): TicketModel[] {
+    getAllTickets() {
+      return this._tickets.map(ticket => {
+        return {
+          ...ticket,
+          event: this._eventService.getEventById(ticket.eventId),
+          seller: this._userService.getUserById(ticket.sellerUserId)
+        };
+      });
+    }*/
 
-/*  create(param: TicketModel) {
-/!*
-    this._tickets = [
-      ...this._tickets,
-      new TicketModel(
-      {
-        id: this._tickets.reduce((x, y) => x.id > y.id ? x : y).id + 1,
-        ...param,
-        event: this._eventService.getEventById(param.eventId),
-        seller: this._userService.getUserById(param.sellerUserId)
-      })
-    ];
-*!/
-  }*/
+  /*  create(param: TicketModel) {
+  /!*
+      this._tickets = [
+        ...this._tickets,
+        new TicketModel(
+        {
+          id: this._tickets.reduce((x, y) => x.id > y.id ? x : y).id + 1,
+          ...param,
+          event: this._eventService.getEventById(param.eventId),
+          seller: this._userService.getUserById(param.sellerUserId)
+        })
+      ];
+  *!/
+    }*/
 
-  getEventNameById(id: string) {
-//    return this._eventService.getEventById(id).name;
+  private _saveGeneratedId(ticketId: string): Observable<string> {
+    return this._http.patch<{ id: string }>(
+      `${environment.firebase.baseUrl}/tickets/${ticketId}.json`,
+      {id: ticketId}
+    )
+      .map(x => x.id);
   }
 
-/*
-  private _getMockTickets() {
-    return [
-      new TicketModel({
-        'id': 1,
-        'date': '2018-05-02',
-        'numberOfTickets': 5,
-        'minimalBidPrice': 2000,
-        'bidStep': 500,
-        'eventId': 1,
-        'sellerUserId': 1
-      }),
+  /*
+    private _getMockTickets() {
+      return [
         new TicketModel({
-          'id': 2,
-          'date': '2018-05-02',
-          'numberOfTickets': 10,
-          'minimalBidPrice': 1500,
-          'bidStep': 500,
-          'eventId': 1,
-          'sellerUserId': 2
-        }),
-        new TicketModel({
-          'id': 3,
-          'date': '2018-05-02',
-          'numberOfTickets': 10,
-          'minimalBidPrice': 3000,
-          'bidStep': 1000,
-          'eventId': 2,
-          'sellerUserId': 1
-        }),
-        new TicketModel({
-          'id': 4,
+          'id': 1,
           'date': '2018-05-02',
           'numberOfTickets': 5,
-          'minimalBidPrice': 3000,
+          'minimalBidPrice': 2000,
           'bidStep': 500,
-          'eventId': 3,
-          'sellerUserId': 3
-      })
-    ];
-  }
-*/
+          'eventId': 1,
+          'sellerUserId': 1
+        }),
+          new TicketModel({
+            'id': 2,
+            'date': '2018-05-02',
+            'numberOfTickets': 10,
+            'minimalBidPrice': 1500,
+            'bidStep': 500,
+            'eventId': 1,
+            'sellerUserId': 2
+          }),
+          new TicketModel({
+            'id': 3,
+            'date': '2018-05-02',
+            'numberOfTickets': 10,
+            'minimalBidPrice': 3000,
+            'bidStep': 1000,
+            'eventId': 2,
+            'sellerUserId': 1
+          }),
+          new TicketModel({
+            'id': 4,
+            'date': '2018-05-02',
+            'numberOfTickets': 5,
+            'minimalBidPrice': 3000,
+            'bidStep': 500,
+            'eventId': 3,
+            'sellerUserId': 3
+        })
+      ];
+    }
+  */
 
 }

@@ -3,7 +3,7 @@ import {UserModel} from './user-model';
 
 export class TicketModel {
   id: string;
-  date: string;
+  // date: string;
   // artist: string;
   numberOfTickets: number;
   minimalBidPrice: number;
@@ -14,6 +14,10 @@ export class TicketModel {
   event: EventModel;
   sellerUserId: string;
   seller: UserModel;
+  currentBid: number;
+  bidCounter: number;
+  bidEndDate: number;
+  details: string;
 
   constructor(param?: TicketModel) {
     if (param) {

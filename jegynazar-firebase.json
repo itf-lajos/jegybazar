@@ -1,25 +1,37 @@
 {
   "events" : {
     "-Ky0E6CbE8qAxNntn8bj" : {
-      "date" : "2017-08-03",
+      "date" : "2017-08-03 13:00",
       "description" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo.",
       "id" : "-Ky0E6CbE8qAxNntn8bj",
       "name" : "Sziget Fesztivál",
-      "pictureURL" : "http://www.fortitudemagazine.co.uk/wp-content/uploads/2017/04/sziget_og_image.jpg"
+      "pictureURL" : "http://www.fortitudemagazine.co.uk/wp-content/uploads/2017/04/sziget_og_image.jpg",
+      "tickets": {
+        "-Ky0HolLJBH3Q5uVHWZf": true,
+        "-Ky0Hz4uP2Es-j9q_Cmw": true
+      }
     },
     "-Ky0EDGGrXHMYdns10L_" : {
-      "date" : "2017-11-23",
+      "date" : "2017-11-23 19:00",
       "description" : "Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
       "id" : "-Ky0EDGGrXHMYdns10L_",
       "name" : "Diótörő Balett",
-      "pictureURL" : "http://www.e-jegyiroda.hu/img/diotoro-jegyek-budapest-szeged-kecskemet-balett-mese-babjatek.jpg"
+      "pictureURL" : "http://www.e-jegyiroda.hu/img/diotoro-jegyek-budapest-szeged-kecskemet-balett-mese-babjatek.jpg",
+      "tickets": {
+        "-Ky0I4C7RzhYJGKP_PAH": true,
+        "-Ky0IZDTNtGAjytLjtoM": true
+      }
     },
     "-Ky0EKWDcRlYVCoRxwUy" : {
-      "date" : "2018-02-11",
+      "date" : "2018-02-11 21:00",
       "description" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, necessitatibus.",
       "id" : "-Ky0EKWDcRlYVCoRxwUy",
       "name" : "Macskák Musical",
-      "pictureURL" : "https://pb2.jegy.hu/imgs/system-4/program/000/016/918/macskak-original-54100.jpg"
+      "pictureURL" : "https://pb2.jegy.hu/imgs/system-4/program/000/016/918/macskak-original-54100.jpg",
+      "tickets": {
+        "-Ky0Ik33L4iyTllI2kFe": true,
+        "-Ky0Iqc3wHhZjgnkC9n0": true
+      }
     },
     "-Ky0EOBRvrSTeR2dw1zZ" : {
       "date" : "2017-08-03",
@@ -72,7 +84,11 @@
       "id" : "-Ky0HolLJBH3Q5uVHWZf",
       "minimalBidPrice" : 2000,
       "numberOfTickets" : 5,
-      "sellerUserId" : "-Ky0CVPDvbJmmeyAggMr"
+      "sellerUserId" : "-Ky0CVPDvbJmmeyAggMr",
+      "currentBid": 3000,
+      "bidCounter": 33,
+      "bidEndDate": 1501765200,
+      "details": "Lorem ipsum..."
     },
     "-Ky0Hz4uP2Es-j9q_Cmw" : {
       "bidStep" : 1000,
@@ -81,7 +97,11 @@
       "id" : "-Ky0Hz4uP2Es-j9q_Cmw",
       "minimalBidPrice" : 4000,
       "numberOfTickets" : 4,
-      "sellerUserId" : "-Ky0CctiCtXXqcrDxJw9"
+      "sellerUserId" : "-Ky0CctiCtXXqcrDxJw9",
+      "currentBid": 6000,
+      "bidCounter": 33,
+      "bidEndDate": 1501765200,
+      "details": "Lorem ipsum..."
     },
     "-Ky0I4C7RzhYJGKP_PAH" : {
       "bidStep" : 2000,
@@ -90,7 +110,11 @@
       "id" : "-Ky0I4C7RzhYJGKP_PAH",
       "minimalBidPrice" : 5000,
       "numberOfTickets" : 7,
-      "sellerUserId" : "-Ky0CqiDVsXAbshfMZ6H"
+      "sellerUserId" : "-Ky0CqiDVsXAbshfMZ6H",
+      "currentBid": 6000,
+      "bidCounter": 33,
+      "bidEndDate": 1511463600,
+      "details": "Lorem ipsum..."
     },
     "-Ky0IZDTNtGAjytLjtoM" : {
       "bidStep" : 1000,
@@ -99,7 +123,11 @@
       "id" : "-Ky0IZDTNtGAjytLjtoM",
       "minimalBidPrice" : 10000,
       "numberOfTickets" : 5,
-      "sellerUserId" : "-Ky0CctiCtXXqcrDxJw9"
+      "sellerUserId" : "-Ky0CctiCtXXqcrDxJw9",
+      "currentBid": 12000,
+      "bidCounter": 33,
+      "bidEndDate": 1511463600,
+      "details": "Lorem ipsum..."
     },
     "-Ky0Ik33L4iyTllI2kFe" : {
       "bidStep" : 2000,
@@ -108,7 +136,11 @@
       "id" : "-Ky0Ik33L4iyTllI2kFe",
       "minimalBidPrice" : 20000,
       "numberOfTickets" : 2,
-      "sellerUserId" : "-Ky0CctiCtXXqcrDxJw9"
+      "sellerUserId" : "-Ky0CctiCtXXqcrDxJw9",
+      "currentBid": 25000,
+      "bidCounter": 33,
+      "bidEndDate": 1518382800,
+      "details": "Lorem ipsum..."
     },
     "-Ky0Iqc3wHhZjgnkC9n0" : {
       "bidStep" : 1500,
@@ -117,7 +149,11 @@
       "id" : "-Ky0Iqc3wHhZjgnkC9n0",
       "minimalBidPrice" : 15000,
       "numberOfTickets" : 1,
-      "sellerUserId" : "-Ky0D91XU3sLX9JHISVW"
+      "sellerUserId" : "-Ky0D91XU3sLX9JHISVW",
+      "currentBid": 16000,
+      "bidCounter": 33,
+      "bidEndDate": 1518382800,
+      "details": "Lorem ipsum..."
     }
   },
   "users" : {
@@ -148,14 +184,14 @@
       "name" : "Marcsa",
       "profilePictureUrl" : "https://i.pinimg.com/236x/2c/80/53/2c80536d805ca08bd1f87d9db9fb9955--funny-wallpapers-wallpaper-iphone.jpg"
     },
-    "OdBGHS7P01dRFRcxVUNH21whLPA2" : {
+    "k9cQU1x9b9MD99mUKRyWzJEcVap2" : {
       "address" : "Székesfehérvár",
       "dateOfBirth" : "1957-01-25",
       "email" : "itf.lajos@gmail.com",
       "gender" : "male",
-      "id" : "OdBGHS7P01dRFRcxVUNH21whLPA2",
+      "id" : "k9cQU1x9b9MD99mUKRyWzJEcVap2",
       "name" : "Szabó Lajos",
-      "profilePictureUrl" : "https://www.minihero.hu/wp-content/uploads/funko-pop-ifju-satan.jpg"
+      "profilePictureUrl" : "assets/koala.jpg"
     }
   }
 }
