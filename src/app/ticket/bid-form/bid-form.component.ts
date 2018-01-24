@@ -9,8 +9,14 @@ import {TicketModel} from '../../shared/ticket-model';
 export class BidFormComponent {
   @Input() ticket: TicketModel;
   @Output() bidWithBidStep = new EventEmitter<void>();
+  displayBidStep = true;
 
   onBidWithBidStep() {
     this.bidWithBidStep.emit();
+  }
+
+  displayBidWithStep($event: Event) {
+    $event.preventDefault();            // megáll az esemény
+    this.displayBidStep = false;
   }
 }
