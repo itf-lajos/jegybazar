@@ -13,7 +13,7 @@ import {EventService} from './shared/event.service';
 import {UserService} from './shared/user.service';
 import {TicketService} from './shared/ticket.service';
 import {LoggedInGuardGuard} from './shared/logged-in.guard';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AuthInterceptor } from './shared/auth-interceptor';
 import { TicketDetailsCardComponent } from './ticket/ticket-details-card/ticket-details-card.component';
@@ -22,6 +22,7 @@ import {MomentModule} from 'angular2-moment';
 import 'moment/locale/hu';
 import { BidFormComponent } from './ticket/bid-form/bid-form.component';
 import { LoadingSpinnerComponent } from './core/loading-spinner/loading-spinner.component';
+import {BidService} from './shared/bid.service';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { LoadingSpinnerComponent } from './core/loading-spinner/loading-spinner.
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     CollapseModule.forRoot(),
     AlertModule.forRoot(),
     AppRoutingModule,
@@ -51,6 +53,7 @@ import { LoadingSpinnerComponent } from './core/loading-spinner/loading-spinner.
     UserService,
     TicketService,
     LoggedInGuardGuard,
+    BidService,
     {
       provide: HTTP_INTERCEPTORS,
         useClass: AuthInterceptor,
