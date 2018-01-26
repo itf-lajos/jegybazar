@@ -9,10 +9,11 @@ import {TicketModel} from '../../shared/ticket-model';
 export class BiddingCardComponent {
   @Input() ticket: TicketModel;
   @Input() isLoggedIn: Boolean;
-//  @Output() bidWithBidStep = new EventEmitter<void>();
+  @Output() refreshTicket = new EventEmitter<void>();
 
   onBidWithBidStep() {
-    alert('Licitálás a következő értékkel')
+    this.refreshTicket.emit();
+//    alert('Licitálás a következő értékkel');
 //    this.bidWithBidStep.emit();
   }
 }

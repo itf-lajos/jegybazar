@@ -71,6 +71,11 @@ body {
   width:200px;
 }
 
+/*Nem lesz kattintható az A elem*/
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
 
 @media (min-width:768px){
   html{

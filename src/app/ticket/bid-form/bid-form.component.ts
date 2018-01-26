@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {TicketModel} from '../../shared/ticket-model';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {bidMinimumValidator} from './bid.validators';
@@ -10,12 +10,15 @@ import {BidService} from '../../shared/bid.service';
   templateUrl: './bid-form.component.html',
   styleUrls: ['./bid-form.component.css']
 })
-export class BidFormComponent implements OnInit {
+export class BidFormComponent implements OnInit, OnChanges {
   @Input() ticket: TicketModel;
-  @Output() bidWithBidStep = new EventEmitter<void>();
+  @Output() bid = new EventEmitter<void>();
   displayBidStep = true;
   form: FormGroup;
   submitted = false;
+  submitSuccessAlert = false;
+  submitErrorAlert = false;
+  disabled = false;
 
   constructor(
     private fb: FormBuilder,
@@ -23,16 +26,37 @@ export class BidFormComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['ticket'] != null
+      && !changes['ticket'].isFirstChange()
+      && changes['ticket'].currentValue != null) {
+      this.disabled = false;
+      this.form.reset({bid: null});
+      this.form.get('bid').enable();
+    }
+  }
+
+  ngOnInit(): void {
     this.form = this.fb.group(
       {
 /*
         bid: null,                                    // sima verzió
         bid: [null, Validators.required],             // adat neve, értéke ha 1 validator van
 */
+        bid: [
+          null,
+          Validators.compose(
+          [
+            Validators.required,
+            bidMinimumValidator(() => {return this.ticket; })
+            ]
+          )
+        ]
+/*
+            bidMinimumValidator(() => return {this.ticket}; )
         bid: [null, Validators.compose([Validators.required,
           bidMinimumValidator(this.ticket.currentBid + this.ticket.bidStep)])]
-      }
+*/    }
     );
 /*
     this.form.get('bid').valueChanges.subscribe(
@@ -48,7 +72,18 @@ export class BidFormComponent implements OnInit {
 */
 
   onBidWithBidStep() {
-    this.bidWithBidStep.emit();
+    this.toBid(this.ticket.currentBid + this.ticket.bidStep)
+      .subscribe(
+        () => {
+          this.submitSuccessAlert = true;         // notification user
+          this.bid.emit();
+          this.form.get('bid').enable();
+        },
+          err => {
+            console.error(err);
+            this.submitErrorAlert = true;
+          }
+      );
   }
 
   displayBidWithStep($event: Event) {
@@ -59,16 +94,19 @@ export class BidFormComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.form.valid) {
-      this.bidService.bid(this.ticket.id, this.form.value['bid'])
+//      this.bidService.bid(this.ticket.id, this.form.value['bid'])
+      this.toBid(this.form.value['bid'])
         .subscribe(
           () => {
             this.submitted = false;
-            this.form.reset({bid: null});
-            // TODO notification user
-            // TODO emit output bid
+//            this.form.reset({bid: null});
+            this.submitSuccessAlert = true;         // notification user
+            this.bid.emit();
+//            this.form.get('bid').enable();
           },
           err => {
             console.error(err);
+            this.submitErrorAlert = true;
           }
         );
     }
@@ -77,5 +115,12 @@ export class BidFormComponent implements OnInit {
     console.log(this.form.valid);
   }
 
+  toBid(value: number) {
+    this.submitSuccessAlert = false;
+    this.submitErrorAlert = false;
+    this.form.get('bid').disable();
+    this.disabled = true;
+    return this.bidService.bid(this.ticket.id, value);
+  }
 
 }
