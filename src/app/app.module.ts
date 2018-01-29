@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {AlertModule, CollapseModule} from 'ngx-bootstrap';
 import {AppRoutingModule} from './app-routing.module';
-
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { JumbotronComponent } from './core/jumbotron/jumbotron.component';
@@ -23,6 +22,8 @@ import 'moment/locale/hu';
 import { BidFormComponent } from './ticket/bid-form/bid-form.component';
 import { LoadingSpinnerComponent } from './core/loading-spinner/loading-spinner.component';
 import {BidService} from './shared/bid.service';
+import * as firebase from 'firebase';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -62,4 +63,8 @@ import {BidService} from './shared/bid.service';
   ],
 bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {
+    firebase.initializeApp(environment.firebase);
+  }
+}
