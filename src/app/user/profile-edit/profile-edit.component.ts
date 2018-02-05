@@ -4,6 +4,7 @@ import {UserService} from '../../shared/user.service';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-profile-edit',
@@ -18,13 +19,15 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
               private _router: Router) { }
 
   ngOnInit() {
-    this.user = this._userService.getCurrentUser();
+    this._userService.getCurrentUser().subscribe(
+      user => this.user = user
+    );
 /*
     this._userService.getCurrentUser()
       .takeUntil(this._destroy$)
       .subscribe(user => this.user = user);
 */
-//    this.user = this._userService.isLoggedin ? this._userService.getCurrentUser() : new UserModel();
+//    this.user = this._userService.isLoggedIn$ ? this._userService.getCurrentUser() : new UserModel();
 //    this.user = this._userService.getCurrentUser();
   }
 

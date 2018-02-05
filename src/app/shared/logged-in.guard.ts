@@ -7,19 +7,32 @@ import {UserService} from './user.service';
 @Injectable()
 export class LoggedInGuardGuard implements CanActivate {
   constructor(private _userService: UserService,
-              private _router: Router,
-              private _location: Location) {
+//              private _location: Location,
+              private _router: Router) {
   }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (this._userService.isLoggedin) {
+    return this._userService.isLoggedIn$.map(
+      isLoggedIn => {
+        if (isLoggedIn === false) {
+          this._router.navigate(['/home']);
+          return false;
+        }
+        return true;
+      }
+    );
+
+/*
+    if (this._userService.isLoggedIn$) {
       return true;
     } else {
       this._router.navigate([this._location.path()]);   // aktuális elérés elkérése
       // this._router.navigate(['/home']);
       return false;
     }
+*/
+
   }
 }

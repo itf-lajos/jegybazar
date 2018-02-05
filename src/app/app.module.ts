@@ -13,8 +13,9 @@ import {UserService} from './shared/user.service';
 import {TicketService} from './shared/ticket.service';
 import {LoggedInGuardGuard} from './shared/logged-in.guard';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import { AuthInterceptor } from './shared/auth-interceptor';
+import {HttpClientModule} from '@angular/common/http';
+// import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+// import { AuthInterceptor } from './shared/auth-interceptor';
 import { TicketDetailsCardComponent } from './ticket/ticket-details-card/ticket-details-card.component';
 import { BiddingCardComponent } from './ticket/bidding-card/bidding-card.component';
 import {MomentModule} from 'angular2-moment';
@@ -24,6 +25,7 @@ import { LoadingSpinnerComponent } from './core/loading-spinner/loading-spinner.
 import {BidService} from './shared/bid.service';
 import * as firebase from 'firebase';
 import {environment} from '../environments/environment';
+import { NavBarItemComponent } from './core/nav-bar-item/nav-bar-item.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import {environment} from '../environments/environment';
     TicketDetailsCardComponent,
     BiddingCardComponent,
     BidFormComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    NavBarItemComponent
   ],
   imports: [
     BrowserModule,
@@ -54,12 +57,14 @@ import {environment} from '../environments/environment';
     UserService,
     TicketService,
     LoggedInGuardGuard,
-    BidService,
+    BidService
+/*
     {
       provide: HTTP_INTERCEPTORS,
         useClass: AuthInterceptor,
         multi: true
     }
+*/
   ],
 bootstrap: [AppComponent]
 })

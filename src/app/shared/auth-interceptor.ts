@@ -1,3 +1,4 @@
+/*
 import {
   HttpEvent,
   HttpHandler,
@@ -23,3 +24,4 @@ export class AuthInterceptor implements HttpInterceptor {
     }
   }
 }
+*/

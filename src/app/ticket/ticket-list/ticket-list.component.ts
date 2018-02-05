@@ -10,8 +10,8 @@ import {Observable} from 'rxjs/Observable';
   styleUrls: ['./ticket-list.component.css']
 })
 export class TicketListComponent implements OnInit {
-  tickets$: Observable<TicketModel[]>;
-  // public tickets: TicketModel[];
+  tickets$: Observable<any>;
+//  tickets: TicketModel[];
 
   constructor(private _ticketService: TicketService,
               public userService: UserService) {

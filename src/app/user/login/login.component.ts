@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     } else {
       this._router.navigate(['/user']);
     }
-    console.log(this._userService.isLoggedin);
+    console.log(this._userService.isLoggedIn$);
 */
   }
 

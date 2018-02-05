@@ -10,21 +10,62 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import {FirebaseRegistrationModel} from './firebase-registration-model';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
+import * as firebase from 'firebase';
+import {TimerObservable} from 'rxjs/observable/TimerObservable';
+import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
 export class UserService {
-  public isLoggedin = false;
+  isLoggedIn$ = new ReplaySubject<boolean>(1);
+  //  public isLoggedIn$ = false;
   public currentUserName = '';
-  private _user = new UserModel();
-  private _fbAuthData: FirebaseLoginModel | FirebaseRegistrationModel | undefined;
+  private _user = new ReplaySubject<UserModel>(1);
+//  private _user = new UserModel();
+  private _fbAuthData: any;
+//  private _fbAuthData: FirebaseLoginModel | FirebaseRegistrationModel | undefined;
 //  private _allUsers: UserModel[];
 
   constructor(private _router: Router,
               private _http: HttpClient) {
-//    this._allUsers = this._getMockData();
+    firebase.auth().onAuthStateChanged(
+      user => {
+        if (user != null) {
+          this._fbAuthData = user;
+          this.getUserById(user.uid).subscribe(remoteUser => this._user.next(remoteUser));
+          this.isLoggedIn$.next(true);
+//          console.log(user.email);
+        } else {
+          this._fbAuthData = null;
+          this._user.next(null);
+          this.isLoggedIn$.next(false);
+        }
+      }
+    );
+    //    this._allUsers = this._getMockData();
+  }
+
+  private nextOrObserver() {
+
   }
 
   login(email: string, password: string): Observable<UserModel | void> {
+    return Observable.fromPromise(firebase.auth().signInWithEmailAndPassword(email, password));
+/*    const testPromise = new Promise<number>((resolve, reject) => {
+      new TimerObservable(2000).subscribe(() => {resolve(5); });
+      // reject();
+    });
+    testPromise.then(
+      szam => {
+        // igaz ág
+      },
+      err => {
+        // hiba ág
+      }
+    );*/
+
+/*
     return this._http.post<FirebaseLoginModel>(
       `${environment.firebase.loginUrl}?key=${environment.firebase.apiKey}`,
       {
@@ -36,13 +77,14 @@ export class UserService {
     .do((fbAuthResponse: FirebaseLoginModel) => this._fbAuthData = fbAuthResponse)
     .switchMap(fbLogin => this.getUserById(fbLogin.localId))
     .do(user => this._user = user)
-    .do(user => this.isLoggedin = true)
     .do(user => console.log('sikeres login ezzel a userrel: ', user))
     .do(user => this.currentUserName = this._user.name);
+*/
+//  .do(user => this.isLoggedIn$ = true)
 
 /*
     .switchMap(fbLogin => this._http.get<UserModel>(`${environment.firebase.baseUrl}/users/${fbLogin.localId}.json`))
-    .do(user => this.isLoggedin = true)
+    .do(user => this.isLoggedIn$ = true)
     .do(user => this._user = user)
     .do(user => console.log('sikeres login ezzel a userrel: ', user))
     .do(user => this.currentUserName = this._user.name);
@@ -52,7 +94,7 @@ export class UserService {
           this._user = this._allUsers[2];
     //      this._user = new UserModel(this.getUserById(1));
     //      this._user = new UserModel(UserModel.exampleUser);
-          this.isLoggedin = true;
+          this.isLoggedIn$ = true;
           this.currentUserName = this._user.name;
     //      this._router.navigate(['/home']);
     //      this._router.navigate(['/user']);
@@ -69,6 +111,8 @@ export class UserService {
 */
 
   register(param: UserModel, password: string) {
+    return this._http.put<UserModel>(`${environment.firebase.baseUrl}/users/${param.id}.json`, param);
+/*
     return this._http.post<FirebaseRegistrationModel>(
      `${environment.firebase.registrationUrl}?key=${environment.firebase.apiKey}`,
      {
@@ -85,9 +129,10 @@ export class UserService {
       };
     })
     .switchMap(user => this.save(user))
-    .do(user => this.isLoggedin = true)
-    .do(user => console.log('sikeres reg ezzel a userrel: ', user))
-    .do(user => this.currentUserName = this._user.name);
+    .do(user => console.log('sikeres reg ezzel a userrel: ', user));
+*/
+//    .do(user => this.currentUserName = this._user.name);
+//  .do(user => this.isLoggedIn$ = true)
   }
 
   /*
@@ -101,7 +146,7 @@ export class UserService {
               this._user = new UserModel(UserModel.exampleUser);
         *!/
       }
-      this.isLoggedin = true;
+      this.isLoggedIn$ = true;
       this.currentUserName = this._user.name;
   //    this._router.navigate(['/home']);
   //    this._router.navigate(['/user']);
@@ -113,24 +158,27 @@ export class UserService {
     // generaljon nekem kulcsot a firebase, hanem a registraciokor kapott id-t szeretnem
     // kulcs kent hasznalni adatmentesnel kulcskent az adatbazisban
     // illetve put-ra fb a bekuldott adatszerkezetet adja vissz igy tudom tovabb hasznalni
-    return this._http.put<UserModel>(`${environment.firebase.baseUrl}/users/${param.id}.json`, param)
-      .do(user => this._user = user);
+    return this._http.put<UserModel>(`${environment.firebase.baseUrl}/users/${param.id}.json`, param);
+ //     .do(user => this._user.next(user));
   }
 
   logout() {
+    firebase.auth().signOut();
+/*
     this._user = new UserModel();
-    this.isLoggedin = false;
     delete(this._fbAuthData);
+*/
     this.currentUserName = '';
     this._router.navigate(['/home']);
     console.log('kileptunk');
+//    this.isLoggedIn$ = false;
   }
 
   /*
     logout() {
       this._user = new UserModel();
       // delete(this._user);
-      this.isLoggedin = false;
+      this.isLoggedIn$ = false;
       this.currentUserName = '';
       this._router.navigate(['/home']);
     }
@@ -160,18 +208,40 @@ export class UserService {
 */
 
   getCurrentUser() {
-    return this._user;
+    return this._user.asObservable();
 //    return Observable.of(this._user);
 //    return this._user ? this._user : new UserModel(UserModel.emptyUser);
 //    return this._user;
   }
 
   addTicket(ticketId: string): Observable<string> {
+    return this._user.flatMap(
+      user => {
+      return this._http.patch(
+        `${environment.firebase.baseUrl}/users/${user.id}/tickets.json`,
+        { [ticketId]: true }
+        )
+        .map(rel => Object.keys(rel)[0]);
+        }
+      );
+/*
+    return this._user.flatMap(
+      user => {
+        return this._http.patch(
+          `${environment.firebase.baseUrl}/users/${user.id}/tickets.json`,
+          {[ticketId]: true}
+        )
+          .map(rel => Object.keys(rel)[0]);
+      }
+    );
+*/
+/*
     return this._http.patch(
       `${environment.firebase.baseUrl}/users/${this._user.id}/tickets.json`,
       {[ticketId]: true}
      )
     .map(rel => Object.keys(rel)[0]);
+*/
   }
 
   get fbIdToken(): string | null {
