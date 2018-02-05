@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
 
 @Component({
   selector: 'app-ticket',
   templateUrl: './ticket.component.html',
-  styleUrls: ['./ticket.component.css']
+  styleUrls: ['./ticket.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TicketComponent implements OnInit {
+export class TicketComponent {
+}
 
-  constructor() { }
+/*
+export class TicketComponent implements AfterViewInit {
 
-  ngOnInit() {
+  constructor(private cdr: ChangeDetectorRef) { }
+
+  ngAfterViewInit() {
+    this.cdr.detach();
   }
 
 }
+*/
