@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {PageNotFoundComponent} from './core/page-not-found/page-not-found.component';
 import {TicketComponent} from './ticket/ticket.component';
-import {AboutComponent} from './about/about.component';
+// import {AboutComponent} from './about/about.component';
 import {LoginComponent} from './user/login/login.component';
 // import {RegistrationComponent} from './user/registration/registration.component';
 import {ProfileComponent} from './user/profile/profile.component';
@@ -36,7 +36,7 @@ const routes: Routes = [
       {path: ':id', component: BidComponent}
     ]
   },
-  {path: 'about', component: AboutComponent},
+  {path: '', loadChildren: 'app/about/about.module#AboutModule'},
   {
     path: 'user',
     children: [
@@ -66,7 +66,7 @@ export class AppRoutingModule {
     TicketListComponent,
     TicketDetailComponent,
     BidComponent,
-    AboutComponent,
+//    AboutComponent,
     LoginComponent,
 //    RegistrationComponent,
     ProfileComponent,
