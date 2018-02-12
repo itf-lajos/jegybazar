@@ -2,8 +2,8 @@
   <div class="col-auto text-center">
     <label>Keresés az események között</label>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Esemény neve">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Keresés</button>
+      <input class="form-control mr-sm-2" type="search" placeholder="Esemény neve" #searchInput>
+      <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Keresés</button>-->
     </form>
   </div>
 
@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<div class="card-deck pt-5 pb-5" *ngFor="let evgroup of eventsGrouppedBy3s | async">
+<div class="card-deck pt-5 pb-5" *ngFor="let evgroup of eventsGrouppedBy3$ | async">
   <app-eventcard class="col col-md-6 col-lg-4"
                  *ngFor="let ev of evgroup"
                  [esemeny]="ev">
