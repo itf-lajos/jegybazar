@@ -16,6 +16,10 @@ import {TicketDetailComponent} from './ticket/ticket-detail/ticket-detail.compon
 import {BidComponent} from './ticket/bid/bid.component';
 import {LoggedInGuardGuard} from './shared/logged-in.guard';
 
+// /event/ -> /event
+// /event/valami -> /event/:id
+// user/:ID -> view mode
+// user/:ID/edit  -> edit mode
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'event', component: EventComponent,
