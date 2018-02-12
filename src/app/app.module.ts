@@ -4,10 +4,10 @@ import { NgModule } from '@angular/core';
 import {AlertModule, CollapseModule} from 'ngx-bootstrap';
 import {AppRoutingModule} from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './core/navbar/navbar.component';
-import { JumbotronComponent } from './core/jumbotron/jumbotron.component';
-import { EventcardComponent } from './event/eventcard/eventcard.component';
-import { FooterComponent } from './core/footer/footer.component';
+// import { NavbarComponent } from './core/navbar/navbar.component';
+// import { JumbotronComponent } from './core/jumbotron/jumbotron.component';
+// import { EventcardComponent } from './event/eventcard/eventcard.component';
+// import { FooterComponent } from './core/footer/footer.component';
 import {EventService} from './shared/event.service';
 import {UserService} from './shared/user.service';
 import {TicketService} from './shared/ticket.service';
@@ -21,27 +21,32 @@ import { BiddingCardComponent } from './ticket/bidding-card/bidding-card.compone
 import {MomentModule} from 'angular2-moment';
 import 'moment/locale/hu';
 import { BidFormComponent } from './ticket/bid-form/bid-form.component';
-import { LoadingSpinnerComponent } from './core/loading-spinner/loading-spinner.component';
+// import { LoadingSpinnerComponent } from './core/loading-spinner/loading-spinner.component';
 import {BidService} from './shared/bid.service';
 import * as firebase from 'firebase';
 import {environment} from '../environments/environment';
-import { NavBarItemComponent } from './core/nav-bar-item/nav-bar-item.component';
+// import { NavBarItemComponent } from './core/nav-bar-item/nav-bar-item.component';
 import { TestDirektivaDirective } from './ticket/bid-form/test-direktiva.directive';
 // import {EventModule} from './event/event.module';
 import {EventcardModule} from './event/eventcard/eventcard.module';
+import {CoreModule} from './core/core.module';
 
 @NgModule({
   declarations: [
     AppComponent,
+/*
     NavbarComponent,
     JumbotronComponent,
     FooterComponent,
+*/
     ...AppRoutingModule.routableComponents,
     TicketDetailsCardComponent,
     BiddingCardComponent,
     BidFormComponent,
+/*
     LoadingSpinnerComponent,
     NavBarItemComponent,
+*/
     TestDirektivaDirective
   ],
   imports: [
@@ -53,7 +58,8 @@ import {EventcardModule} from './event/eventcard/eventcard.module';
     AppRoutingModule,
     HttpClientModule,
     MomentModule,
-    EventcardModule
+    EventcardModule,
+    CoreModule
   ],
 //  providers: [EventService, UserService, TicketService, LoggedInGuardGuard],
   providers: [
