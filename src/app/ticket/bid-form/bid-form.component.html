@@ -1,7 +1,10 @@
 <!--<button (click)="testMethod()">TEST</button>-->
-<alert type="success" dismissOnTimeout="5000" *ngIf="submitSuccessAlert">
+<!--<alert type="success" dismissOnTimeout="5000">-->
+<alert type="success" dismissOnTimeout="5000" *ngIf="submitSuccessAlert" #successAlert>
+<!--<alert type="success" dismissOnTimeout="5000" appTestDirektiva>-->
   Licitedet rögzítettük.
 </alert>
+<!--<alert type="danger">-->
 <alert type="danger" *ngIf="submitErrorAlert">
   Valami hiba történt... Próbáld meg újra vagy jelezd a support-nak!
 </alert>

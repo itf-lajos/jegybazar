@@ -1,8 +1,12 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+  AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges,
+  ViewChild, ViewChildren
+} from '@angular/core';
 import {TicketModel} from '../../shared/ticket-model';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {bidMinimumValidator} from './bid.validators';
 import {BidService} from '../../shared/bid.service';
+import {AlertComponent} from 'ngx-bootstrap';
 
 
 @Component({
@@ -11,7 +15,7 @@ import {BidService} from '../../shared/bid.service';
   styleUrls: ['./bid-form.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BidFormComponent implements OnInit, OnChanges {
+export class BidFormComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() ticket: TicketModel;
   @Output() bid = new EventEmitter<void>();
   displayBidStep = true;
@@ -20,6 +24,9 @@ export class BidFormComponent implements OnInit, OnChanges {
   submitSuccessAlert = false;
   submitErrorAlert = false;
   disabled = false;
+  @ViewChildren(AlertComponent) successAlerts: QueryList<AlertComponent>;
+//  @ViewChild('successAlert') successAlert: AlertComponent;
+//  @ViewChild(TestDirektivaDirective) successAlert: TestDirektivaDirective;
 
   constructor(
     private fb: FormBuilder,
@@ -37,6 +44,10 @@ export class BidFormComponent implements OnInit, OnChanges {
     }
   }
 
+  ngAfterViewInit(): void {
+    console.log(this.successAlerts);
+  }
+
   ngOnInit(): void {
     this.form = this.fb.group(
       {
@@ -49,7 +60,7 @@ export class BidFormComponent implements OnInit, OnChanges {
           Validators.compose(
           [
             Validators.required,
-            bidMinimumValidator(() => {return this.ticket; } )
+            bidMinimumValidator(() => this.ticket )
             ]
           )
         ]

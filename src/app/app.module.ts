@@ -26,20 +26,23 @@ import {BidService} from './shared/bid.service';
 import * as firebase from 'firebase';
 import {environment} from '../environments/environment';
 import { NavBarItemComponent } from './core/nav-bar-item/nav-bar-item.component';
+import { TestDirektivaDirective } from './ticket/bid-form/test-direktiva.directive';
+// import {EventModule} from './event/event.module';
+import {EventcardModule} from './event/eventcard/eventcard.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     JumbotronComponent,
-    EventcardComponent,
     FooterComponent,
     ...AppRoutingModule.routableComponents,
     TicketDetailsCardComponent,
     BiddingCardComponent,
     BidFormComponent,
     LoadingSpinnerComponent,
-    NavBarItemComponent
+    NavBarItemComponent,
+    TestDirektivaDirective
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,8 @@ import { NavBarItemComponent } from './core/nav-bar-item/nav-bar-item.component'
     AlertModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    MomentModule
+    MomentModule,
+    EventcardModule
   ],
 //  providers: [EventService, UserService, TicketService, LoggedInGuardGuard],
   providers: [
@@ -66,7 +70,7 @@ import { NavBarItemComponent } from './core/nav-bar-item/nav-bar-item.component'
     }
 */
   ],
-bootstrap: [AppComponent]
+bootstrap: [AppComponent],
 })
 export class AppModule {
   constructor() {
