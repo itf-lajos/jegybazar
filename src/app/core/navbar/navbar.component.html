@@ -1,0 +1,38 @@
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/home">Jegybazár</a>
+    <button class="navbar-toggler"
+            type="button"
+            (click)="isCollapsed = !isCollapsed"
+            data-toggle="collapse"
+            data-target="#navbarNavAltMarkup">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup" [collapse]="isCollapsed">
+      <div class="navbar-nav ml-auto">
+        <app-nav-bar-item url="home" name="Home"></app-nav-bar-item>
+        <app-nav-bar-item url="event" name="Események"></app-nav-bar-item>
+        <app-nav-bar-item url="ticket" name="Jegyek"></app-nav-bar-item>
+        <app-nav-bar-item url="about" name="Rólunk"></app-nav-bar-item>
+<!--
+        <a class="nav-item nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+        <a class="nav-item nav-link" routerLink="/event" routerLinkActive="active">Események</a>
+        <a class="nav-item nav-link" routerLink="/ticket" routerLinkActive="active">Jegyek</a>
+        <a class="nav-item nav-link" routerLink="/about" routerLinkActive="active">Rólunk</a>
+-->
+        <ng-container *ngIf="!isLoggedIn; else loggedInBlock">
+        <!--<ng-container *ngIf="!(userService.isLoggedIn$ | async); else loggedInBlock">-->
+          <app-nav-bar-item url="/user/login" name="Belépés"></app-nav-bar-item>
+          <!--<a class="nav-item nav-link" routerLink="/user/login" routerLinkActive="active">Belépés</a>-->
+          <a class="nav-item nav-link btn btn-primary text-light ml-lg-2 btn-sm" routerLink="/user/registration" routerLinkActive="active">Regisztráció</a>
+        </ng-container>
+        <ng-template #loggedInBlock>
+          <a class="nav-item nav-link btn btn-primary text-light ml-lg-2 btn-sm" routerLink="/user/" routerLinkActive="active">{{userService.currentUserName}}</a>
+          <a class="nav-item nav-link" (click)="logout()" routerLink="" routerLinkActive="active">Kilépés</a>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- navbar end -->
